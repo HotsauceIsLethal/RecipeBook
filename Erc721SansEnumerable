@@ -1,0 +1,77 @@
+pragma solidity ^0.6.0;
+
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC721/SafeERC721.sol";
+
+// This contract represents a unique, non-fungible token
+// It is not enumerable, which means it does not have a "balanceOf" function
+// to get the total number of tokens a particular address owns
+contract MyNFT is SafeERC721 {
+  using SafeMath for uint256;
+
+  // Events
+  event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+  event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+  event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+
+  // State variables
+  mapping(uint256 => address) public tokenOwner;
+  mapping(uint256 => address) public tokenApprovals;
+
+  // Constructor
+  constructor() public {
+    // Set the contract owner as the msg.sender
+    // The msg.sender is the address that deployed the contract
+    tokenOwner[0] = msg.sender;
+  }
+
+  // Transfer functions
+  function transferFrom(
+    address from,
+    address to,
+    uint256 tokenId
+  )
+    public
+    // This function can only be called if the approval has been granted
+    // or the from address is the owner of the token
+    // This is to prevent unauthorized transfers
+    requires((tokenOwner[tokenId] == from && tokenApprovals[tokenId] == address(0)) || tokenApprovals[tokenId] == from, "Approval required")
+  {
+    // Ensure that the from and to addresses are not the same
+    require(from != to, "From and to addresses cannot be the same");
+
+    // Ensure that the tokenId is a valid NFT
+    require(tokenOwner[tokenId] == from, "Token does not belong to from address");
+
+    // Transfer the token from the from address to the to address
+    tokenOwner[tokenId] = to;
+
+    // Emit a Transfer event
+    emit Transfer(from, to, tokenId);
+  }
+
+  function transfer(
+    address to,
+    uint256 tokenId
+  )
+    public
+    // This function can only be called if the msg.sender is the owner of the token
+    // This is to prevent unauthorized transfers
+    requires(tokenOwner[tokenId] == msg.sender, "Token does not belong to msg.sender")
+  {
+    // Ensure that the from and to addresses are not the same
+    require(msg.sender != to, "From and to addresses cannot be the same");
+
+    // Transfer the token from the from address to the to address
+    tokenOwner[tokenId] = to;
+
+    // Emit a Transfer event
+    emit Transfer(msg.sender, to, tokenId);
+  }
+
+  // Approval functions
+  function approve(
+    address approved,
+    uint256 tokenId
+  )
+    public
