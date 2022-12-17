@@ -1,0 +1,81 @@
+pragma solidity ^0.6.0;
+
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC721/SafeERC721.sol";
+
+// Name and symbol of the token
+string public name = "BabySeals";
+string public symbol = "BS";
+
+// Total supply of the token
+uint256 public totalSupply = 57000;
+
+// Mint price of the token in ETH
+uint256 public mintPrice = 1 ether;
+
+// Mapping from token ID to owner address
+mapping(uint256 => address) public tokenOwner;
+
+// Mapping from token ID to approved address
+mapping(uint256 => address) public tokenApprovals;
+
+// Array of all the token IDs
+uint256[] public tokenIds;
+
+// ERC721 interface
+contract BabySeals is SafeERC721 {
+    constructor() public {
+        // Assign ownership of all the tokens to the contract
+        for (uint256 i = 0; i < totalSupply; i++) {
+            tokenOwner[i] = address(this);
+            tokenIds.push(i);
+        }
+    }
+
+    // Function to mint new tokens
+    function mint(address _to) public payable {
+        // Require that the correct mint price is paid
+        require(msg.value == mintPrice, "Incorrect mint price");
+
+        // Get the next available token ID
+        uint256 tokenId = tokenIds.length;
+
+        // Assign ownership of the token to the recipient
+        tokenOwner[tokenId] = _to;
+
+        // Add the token ID to the recipient's list of owned tokens
+        tokenIds.push(tokenId);
+
+        // Notify the recipient of the new token
+        emit Transfer(_to, _to, tokenId);
+    }
+
+    // ERC721 required functions
+    function balanceOf(address _owner) public view override returns (uint256) {
+        return tokenIds.length;
+    }
+
+    function ownerOf(uint256 _tokenId) public view override returns (address) {
+        return tokenOwner[_tokenId];
+    }
+
+    function safeTransferFrom(address _from, address _to, uint256 _tokenId) public override {
+        // Require that the from address owns the token
+        require(tokenOwner[_tokenId] == _from, "From address does not own the token");
+
+        // Transfer ownership of the token
+        tokenOwner[_tokenId] = _to;
+
+        // Notify the recipient of the transferred token
+        emit Transfer(_from, _to, _tokenId);
+    }
+
+    function approve(address _to, uint256 _tokenId) public override {
+        // Require that the from address owns the token
+        require(tokenOwner[_tokenId] == msg.sender, "Sender does not own the token");
+
+        // Set the approved address for the token
+        tokenApprovals[_tokenId] = _to;
+
+        // Notify the approved address of
+*** Incomplete code, need to revise here****
