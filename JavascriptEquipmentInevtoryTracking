@@ -1,0 +1,24 @@
+const inventory = {};
+
+function addEquipment(name, quantity) {
+  inventory[name] = quantity;
+}
+
+function removeEquipment(name, quantity) {
+  if (inventory[name]) {
+    inventory[name] -= quantity;
+  }
+}
+
+function checkInventory(name) {
+  return inventory[name] || 0;
+}
+
+// Example usage:
+addEquipment('laptops', 5);
+addEquipment('desks', 3);
+console.log(checkInventory('laptops')); // 5
+console.log(checkInventory('desks')); // 3
+console.log(checkInventory('chairs')); // 0
+removeEquipment('laptops', 2);
+console.log(checkInventory('laptops')); // 3
