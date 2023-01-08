@@ -1,0 +1,69 @@
+pragma solidity ^0.8.0;
+
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC721/SafeERC721.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/SafeERC20.sol";
+
+// ERC721 token contract
+contract ERC721Token {
+  function balanceOf(address owner) public view returns (uint);
+  function ownerOf(uint tokenId) public view returns (address);
+  function safeTransferFrom(address from, address to, uint tokenId, bytes data) public;
+}
+
+// ERC20 token contract
+contract ERC20Token {
+  function totalSupply() public view returns (uint);
+  function balanceOf(address account) public view returns (uint);
+  function transfer(address to, uint value) public;
+  function approve(address spender, uint value) public;
+  function transferFrom(address from, address to, uint value) public;
+}
+
+contract FractionalNFT {
+  using SafeMath for uint;
+  using SafeERC20 for ERC20Token;
+  using SafeERC721 for ERC721Token;
+
+  // ERC721 token contract instance
+  ERC721Token public nft;
+
+  // ERC20 token contract instance
+  ERC20Token public token;
+
+  // Address of the contract owner
+  address public owner;
+
+  // Mapping from ERC721 token ID to the amount of ERC20 tokens
+  // that have been issued for it
+  mapping(uint => uint) public tokenCount;
+
+  constructor(ERC721Token _nft, ERC20Token _token) public {
+    nft = _nft;
+    token = _token;
+    owner = msg.sender;
+  }
+
+  // Deposit an ERC721 token and receive ERC20 tokens in return
+  function deposit(uint tokenId, uint amount) public {
+    // Ensure that the caller is the owner of the ERC721 token
+    require(nft.ownerOf(tokenId) == msg.sender, "ERC721 token is not owned by the caller");
+
+    // Ensure that the ERC721 token has not been deposited before
+    require(tokenCount[tokenId] == 0, "ERC721 token has already been deposited");
+
+    // Calculate the total supply of ERC20 tokens
+    uint totalSupply = token.totalSupply();
+
+    // Calculate the number of ERC20 tokens to be issued for the ERC721 token
+    uint tokensToIssue = (amount * totalSupply) / nft.balanceOf(owner);
+
+    // Issue the ERC20 tokens
+    token.transfer(msg.sender, tokensToIssue);
+
+    // Update the token count for the ERC721 token
+    tokenCount[tokenId] = tokensToIssue;
+  }
+
+  // Withdraw an ERC721 token and receive ERC20 tokens back in
+***CODE CUT OFF HERE NEED TO QUERY CHATGPT TO COMPLETE***
