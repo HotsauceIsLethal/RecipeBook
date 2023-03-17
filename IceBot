@@ -1,0 +1,44 @@
+*/
+Help me to create a smart contract in solidity called IceBot. It is a market making bot that buys ICEBRK erc20 tokens from spooky.fi
+
+Sure, I can help you create a smart contract in Solidity called IceBot. Here's an example code to get you started:
+*/
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.0;
+
+import "./IERC20.sol"; // Import the ERC20 interface
+
+contract IceBot {
+    address private constant ICEBRK_ADDRESS = 0x...; // Replace with the address of the ICEBRK token
+    address private constant SPOOKY_FI_ADDRESS = 0x...; // Replace with the address of the Spooky.fi exchange
+    
+    uint256 private constant BUY_PRICE = 1 ether; // Replace with the desired buy price in wei
+    
+    receive() external payable {
+        // Accept ETH sent to this contract
+    }
+    
+    function buyICEBRK() external {
+        IERC20 icebrk = IERC20(ICEBRK_ADDRESS);
+        require(icebrk.balanceOf(address(this)) == 0, "IceBot: already holding ICEBRK"); // Ensure the bot is not already holding ICEBRK
+        
+        uint256 ethBalance = address(this).balance;
+        require(ethBalance > 0, "IceBot: no ETH to buy ICEBRK"); // Ensure the bot has enough ETH to buy ICEBRK
+        
+        uint256 icebrkBalance = icebrk.balanceOf(SPOOKY_FI_ADDRESS);
+        require(icebrkBalance > 0, "IceBot: no ICEBRK available for purchase"); // Ensure there are ICEBRK tokens available for purchase
+        
+        uint256 ethNeeded = icebrkBalance * BUY_PRICE / 1 ether; // Calculate the ETH needed to purchase the available ICEBRK tokens
+        require(ethBalance >= ethNeeded, "IceBot: insufficient ETH to purchase ICEBRK"); // Ensure the bot has enough ETH to purchase the available ICEBRK tokens
+        
+        (bool success, ) = SPOOKY_FI_ADDRESS.call{value: ethNeeded}(""); // Send the ETH to the exchange to purchase ICEBRK tokens
+        require(success, "IceBot: failed to purchase ICEBRK");
+        
+        icebrk.transfer(address(this), icebrkBalance); // Transfer the purchased ICEBRK tokens to the bot's address
+    }
+}
+*/This code defines a IceBot contract with a buyICEBRK function that buys ICEBRK tokens from the Spooky.fi exchange using ETH held by the contract. The contract also defines a constant BUY_PRICE that represents the desired buy price of ICEBRK tokens in wei.
+
+To use this code, you need to replace the placeholder addresses for the ICEBRK token and the Spooky.fi exchange with their actual addresses. You also need to set the BUY_PRICE constant to your desired buy price.
+
+/*Note that this code is just an example and should be thoroughly tested and audited before deploying to a production environment.
