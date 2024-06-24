@@ -1,0 +1,174 @@
+/*   __  _______  __  _______ ______   __________  ___    ____ 
+    /  |/  / __ \/ / / / ___// ____/  /_  __/ __ \/   |  / __ \
+   / /|_/ / / / / / / /\__ \/ __/      / / / /_/ / /| | / /_/ /
+  / /  / / /_/ / /_/ /___/ / /___     / / / _, _/ ___ |/ ____/ 
+ /_/  /_/\____/\____//____/_____/    /_/ /_/ |_/_/  |_/_/      
+                                                              
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXKKK0KK000000000000000000000000KKKK000KXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXKOxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxdod0XXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXKkxddddddddddddddddddddddddddddddddddolccoOKXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXX0kxddddddddddddddddddddddddddddddddddolcccclkKXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXKOxdddddddddddddddddddddddddddddddddddolccccccld0XXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXKOxdddddddddddddddddddddddddddddddddddolcccccccccoOKXXXXXXXXXXXXXXXXX
+XXXXXXXXXX0kxdddddddddddddddddddddddddddddddddddocccccccccccclkKXXXXXXXXXXXXXXXX
+XXXXXXXXKOxddddddddddddddddddddddddddddddddddddoccccccccccccccld0XXXXXXXXXXXXXXX
+XXXXXXXKOxddddddddddddddddddddddddddddddddddddlcccccccccccccccccoOKXXXXXXXXXXXXX
+XXXXXX0kxdxxxdooddddddddddddddddddddddddddddolccccccccccccccccccclkKXXXXXXXXXXXX
+XXXXX0kddxkOOd:cdddddddddddddddddddddddddddolcccccccccccccccccccccld0XXXXXXXXXXX
+XXXKOxdddxOOOx:;odddddddddddddddddddddddddolccccccccccccccccccccccccoOKXXXXXXXXX
+XXKOdoooooxO0Oo:coooooooooooooooooooooooollcccccccccccccccccccccccccclkKXXXXXXXX
+XXX0xc;;;;:okOOxxddlc:;,;;;;;;;;,,'''''',;:cccccccccccccccccccccccccccld0XXXXXXX
+XXXXKkl;''',:dOOkdl:,,''''''''''''........,:ccccccccccccccccccccccccccccoOKXXXXX
+XXXXXKOo:,'',lOkl,'''''''''''''''''........';cccccccccccccccccccccccccccclkKXXXX
+XXXXXXX0xc,',lOkl,'''''''''''''''''''........;:cccccccccccccccccccccccccccld0XXX
+XXXXXXXXKkl;,lOkl,''''''''''''''''''''........,:ccccccccccccccccccccccccccccoOXX
+XXXXXXXXXXOocoOkl,''''''''''''''''''''.........';cccccccccccccccccccccccccccoOXX
+XXXXXXXXXXX0xxOkl,'''''''''''''''''''............,:ccccccccccccccccccccccccoOXXX
+XXXXXXXXXXXXK00kl,''''''''''''''''''..............':ccccccccccccccccccccccokKXXX
+XXXXXXXXXXXXXK0Oo;'''''''''''''''''.................;cccccccccccccccccccclkKXXXX
+XXXXXXXXXXXXXK0Oxl;''''''''''''''''..................,:ccccccccccccccccclxKXXXXX
+XXXXXXXXXXXXXK000Oo:,'''''''''''''....................';ccccccccccccccclxKXXXXXX
+XXXXXXXXXXXXXK00KX0xc,'''''''''''.......................;:cccccccccccclx0XXXXXXX
+XXXXXXXXXXXXXK00KXXKkl;,''''''''...'coooooc;,:looooool:..,:ccccccccccld0XXXXXXXX
+XXXXXXXXXXXXXK00KXXXX0d:,''''''...,okOOOOOOkkkOOOO0KKXO:..';cccccccccd0XXXXXXXXX
+XXXXXXXXXXXXXK00KXXXXX0xc;''''...;dOkkkOOOO00OOkkOKXXX0c....,:ccccccoOXXXXXXXXXX
+XXXXXXXXXXXXXK00KXXXXXXKOl;,'...;dOOOOO000KKKXK00KXXXX0c.....':ccccoOXXXXXXXXXXX
+XXXXXXXXXXXXXK00KXXXXXXXX0d:,'':dO000KKXXXXXXXXXXXXXXXKl'....',:ccoOXXXXXXXXXXXX
+XXXXXXXXXXXXXK00KXXXXXXXXKOdccok0KKXXXXXXXK0KKXXXXXKXX0dccccccclodOXXXXXXXXXXXXX
+XXXXXXXXXXXXXK00KXXXXK0OkdoolokKXXXXXXXXXK000KXXX0kxxxdooloodxkOKXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXK00KKKOkxdoollllokKXXXXXXXXXXXXKK0OxdololoodxkOKKXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXK0OkxdooloolllllokKXXXXXXXXKK0OxdoolloodxkOKKXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXK0OO0OxolllllooloolokKXXXKKOkxddoolloooxkO0KXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXK0OxdooxOOxolllolloolllodO0OkxdoololloodkO0KXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXK0kxddddxkOOxddddddddddddddxxxdddddddxxO0KXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXKKKKKKKKKKK00KKKKKKKKKKKKKKKKKKKKKKKKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX*/
+// MouseTrap is a token wrapper for Mouse token on PulseChain (0xDe9f0E84D9af9FFC4796ef8398434d67509a9bCa)
+// Users can use the "wrapMouse" and "unwrapMouse" functions to turn Mouse tokens into MouseTrap
+// Benefits include V3 compatibility, no tax on MouseTrap token transfers, blacklist for sniper bots + bad actors
+// Excess supply can be minted only by the owner using the function "mouseTrap" to rebalance contract
+//
+// SPDX-License-Identifier: MIT
+// Modified from OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/extensions/ERC20Wrapper.sol)
+
+pragma solidity ^0.8.20;
+
+import {IERC20, IERC20Metadata, ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+/**
+ * @dev Extension of the ERC-20 token contract to support token wrapping.
+ *
+ * Users can deposit and withdraw "underlying tokens" and receive a matching number of "wrapped tokens". This is useful
+ * in conjunction with other modules. For example, combining this wrapping mechanism with {ERC20Votes} will allow the
+ * wrapping of an existing "basic" ERC-20 into a governance token.
+ *
+ * WARNING: Any mechanism in which the underlying token changes the {balanceOf} of an account without an explicit transfer
+ * may desynchronize this contract's supply and its underlying balance. Please exercise caution when wrapping tokens that
+ * may undercollateralize the wrapper (i.e. wrapper's total supply is higher than its underlying balance). See {_recover}
+ * for recovering value accrued to the wrapper.
+ */
+    contract MouseTrap is Context, ERC20, Ownable {
+    mapping(address => bool) public bannedBots;
+    event UpdatedBanStatus(address user, bool banned);
+    IERC20 private immutable _underlying;
+    /**
+     * @dev The underlying token couldn't be wrapped.
+     */
+    error ERC20InvalidUnderlying(address token);
+
+    constructor(IERC20 underlyingToken) Ownable(msg.sender) ERC20("MouseTrap", unicode"🪤") {
+
+        if (underlyingToken == this) {
+            revert ERC20InvalidUnderlying(address(this));
+        }
+        _underlying = underlyingToken;
+    }
+
+    /**
+     * @dev See {ERC20-decimals}.
+     */
+    function decimals() public view virtual override returns (uint8) {
+        try IERC20Metadata(address(_underlying)).decimals() returns (uint8 value) {
+            return value;
+        } catch {
+            return super.decimals();
+        }
+    }
+
+    /**
+     * @dev Returns the address of the underlying ERC-20 token that is being wrapped.
+     */
+    function underlying() public view returns (IERC20) {
+        return _underlying;
+    }
+
+    /**
+     * @dev Allow a user to deposit underlying tokens and mint the corresponding number of wrapped tokens.
+     */
+    function wrapMouse(address account, uint256 value) public virtual returns (bool) {
+        address sender = _msgSender();
+        //check added to ensure sender is not on blacklist- see "setBotBanStatus" function below
+        require(bannedBots[account] == false, "Sender is banned");
+        if (sender == address(this)) {
+            revert ERC20InvalidSender(address(this));
+        }
+        if (account == address(this)) {
+            revert ERC20InvalidReceiver(account);
+        }
+        SafeERC20.safeTransferFrom(_underlying, sender, address(this), value);
+        _mint(account, value);
+        return true;
+    }
+
+    /**
+     * @dev Allow a user to burn a number of wrapped tokens and withdraw the corresponding number of underlying tokens.
+     */
+    function unwrapMouse(address account, uint256 value) public virtual returns (bool) {
+        //check added to ensure sender is not on blacklist- see "setBotBanStatus" function below
+        require(bannedBots[account] == false, "Sender is banned");
+        if (account == address(this)) {
+            revert ERC20InvalidReceiver(account);
+        }
+        _burn(_msgSender(), value);
+        SafeERC20.safeTransfer(_underlying, account, value);
+        return true;
+    }
+
+    /**
+     * @dev Mint wrapped token to cover any underlyingTokens that would have been transferred by mistake or acquired from
+     * rebasing mechanisms. Internal function that can be exposed with access control if desired.
+     */
+    function _recover(address account) internal virtual returns (uint256) {
+        uint256 value = _underlying.balanceOf(address(this)) - totalSupply();
+        _mint(account, value);
+        return value;
+    }
+    // This function allows only the owner to recover and mint excess supply from reflections to the contract
+    function mouseTrap() public onlyOwner {
+		_recover(address(owner()));
+	}
+    // This function returns stuck ETH to owner
+    function gibETH(uint256 amount) public onlyOwner {
+       address payable ownerWallet = payable(owner());
+        ownerWallet.transfer(amount);
+    }
+    // This function returns stuck MouseTrap from the contract
+    function gibMouseTrap(uint256 amount) public onlyOwner {
+        _approve(address(this), address(owner()), amount);
+        transferFrom(address(this), address(owner()), amount);
+    }
+    // This function acts as a catch-all to return stuck tokens from input "tokenAddress"
+    function gibToken(address tokenAddress, uint256 amount) public onlyOwner {
+        _approve(address(this), address(owner()), amount);
+        IERC20(tokenAddress).transferFrom(address(this), owner(), amount);
+    }
+    // Allows the owner to add or remove wallets from the blacklist, uses a boolean "bannedStatus" to flip true/false
+    function setBotBanStatus(address bot, bool bannedStatus) external onlyOwner {
+        bannedBots[bot] = bannedStatus;
+        emit UpdatedBanStatus(bot, bannedStatus);
+    }
+}
