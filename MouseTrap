@@ -45,13 +45,49 @@ XXXXK0kxddddxkOOxddddddddddddddxxxdddddddxxO0KXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 XXXXXKKKKKKKKKKK00KKKKKKKKKKKKKKKKKKKKKKKKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX*/
-// MouseTrap is a token wrapper for Mouse token on PulseChain (0xDe9f0E84D9af9FFC4796ef8398434d67509a9bCa)
+// MouseTrap is a token wrapper for Mouse token on PulseChain (@MouseOnPulse) (0xDe9f0E84D9af9FFC4796ef8398434d67509a9bCa)
 // Users can use the "wrapMouse" and "unwrapMouse" functions to turn Mouse tokens into MouseTrap
 // Benefits include V3 compatibility, no tax on MouseTrap token transfers, blacklist for sniper bots + bad actors
 // Excess supply can be minted only by the owner using the function "mouseTrap" to rebalance contract
 //
-// SPDX-License-Identifier: MIT
-// Modified from OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/extensions/ERC20Wrapper.sol)
+// Instructions on how to Wrap Mouse or Unwrap Mouse for users:
+// 1) Connect your web3 wallet to the PulseChain block explorer, on the MouseTrap contract tab - copy address for MouseTrap*
+// 2) On a separate tab open the Mouse token contract and give approval for MouseTrap to spend Mouse (under "approve").
+//    Enter MouseTrap contract address, comma, units to approve PLUS nine zeros after to represent decimal precision, or just enter 999999999999999999 (infinite)
+// 3) Once you have given approval to MouseTrap to spend your Mouse you are ready to use "wrapMouse" or "unwrapMouse" on MouseTrap contract tab
+// 4) To wrap Mouse into MouseTrap tokens (1-for-1) simply enter YOUR WALLET ADDRESS, comma, units to wrap followed by 9 decimals precision as above - enter this into the field marked "wrapMouse" (for example 1= 1000000000)
+// 5) To unwrap Mouse from MouseTrap tokens (1-for-1) do exactly as in step 4 but in field marked "unwrapMouse"
+
+
+/* FAQ:
+Q- Is MouseTrap tradeable on the market?
+A- Just like any other ERC20, MouseTrap will have available pairs on DEX for trading
+
+Q- Is MouseTrap redeemable for Mouse tokens?
+A- Yes, MouseTrap is always redeemable 1-for-1 directly from the MouseTrap contract itself
+
+Q- What is the utility of MouseTrap?
+A- MouseTrap allows users to access V3 liquidity pairs since Mouse token is incompatible with V3.
+    it also offers DeFi use cases (liquidity pairs, staking, potential airdrops)
+
+Q- Is there a blacklist for MouseTrap?
+A- Yes, just like with Mouse token there is a blacklist for MouseTrap to prevent bad actors from harming the project
+
+Q- What does the "mouseTrap" function do?
+A- It allows only the owner to rebalance the contract by minting exactly 1-to-1 ratio of supply to represent Mouse in the contract, due to reflections
+
+Q- What about the other functions gibToken, gibMouseTrap, gibETH?
+A- These are failsafe measures to prevent any stuck tokens from accumulating in the contract. In the past people have mistakenly/irretrievably sent funds to smart contracts- this solves that problem just in case it happens to us
+
+Q- Why should I wrap or not wrap my Mouse tokens?
+A- Wrapping Mouse allows the users to interact with V3 style concentrated liquidity pools in addition to V2 style.
+    Wrapped Mouse (MouseTrap) also has no tax on transfers or trades, giving less friction to traders, plus arbitrage opportunities.
+    By wrapping the Mouse token the user is not going to receive any reflection rewards and cannot interact with the Mouse staking contracts.
+
+ SPDX-License-Identifier: MIT
+ Modified from OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/extensions/ERC20Wrapper.sol)
+*/
+
 
 pragma solidity ^0.8.20;
 
@@ -79,7 +115,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
      * @dev The underlying token couldn't be wrapped.
      */
     error ERC20InvalidUnderlying(address token);
-
+//@dev Creates the contract using the input address of target wrappable token (Mouse)
     constructor(IERC20 underlyingToken) Ownable(msg.sender) ERC20("MouseTrap", unicode"🪤") {
 
         if (underlyingToken == this) {
@@ -108,6 +144,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
     /**
      * @dev Allow a user to deposit underlying tokens and mint the corresponding number of wrapped tokens.
+        added checks for bannedBots blacklist on sender
      */
     function wrapMouse(address account, uint256 value) public virtual returns (bool) {
         address sender = _msgSender();
@@ -126,6 +163,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
     /**
      * @dev Allow a user to burn a number of wrapped tokens and withdraw the corresponding number of underlying tokens.
+        added checks for bannedBots blacklist on sender
      */
     function unwrapMouse(address account, uint256 value) public virtual returns (bool) {
         //check added to ensure sender is not on blacklist- see "setBotBanStatus" function below
@@ -171,4 +209,24 @@ import "@openzeppelin/contracts/access/Ownable.sol";
         bannedBots[bot] = bannedStatus;
         emit UpdatedBanStatus(bot, bannedStatus);
     }
+    //override transfer function to add check for blacklist
+    function transfer(address recipient, uint256 amount) public override returns (bool) {
+        //check added to ensure sender is not on blacklist- see "setBotBanStatus" function below
+        require(bannedBots[recipient] == false, "Recipient is banned");
+        //check added to ensure sender is not on blacklist- see "setBotBanStatus" function below
+        require(bannedBots[_msgSender()] == false, "Sender is banned");
+        _transfer(_msgSender(), recipient, amount);
+        return true;
+    }
+    //override transferFrom function to add check for blacklist (allows contract or address to spend on user behalf)
+        function transferFrom(address from, address to, uint256 value) public override returns (bool) {
+        address spender = _msgSender();
+        //check added to ensure sender is not on blacklist- see "setBotBanStatus" function below
+        require(bannedBots[to] == false, "Recipient is banned");
+        //check added to ensure sender is not on blacklist- see "setBotBanStatus" function below
+        require(bannedBots[_msgSender()] == false, "Sender is banned");
+        _spendAllowance(from, spender, value);
+        _transfer(from, to, value);
+        return true;
+        }
 }
